@@ -1,0 +1,26 @@
+
+spring:
+  application:
+    name: enseignant-ms
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://mysql:3306/mon_beau_jardin_vms?createDatabaseIfNotExist=true
+    username: root
+  jpa:
+    hibernate:
+      ddl-auto: create
+    show-sql: true
+  cloud:
+    discovery:
+      enabled: true
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://servicereg:8761/eureka/
+    register-with-eureka: true
+  instance:
+    prefer-ip-address: true
+
+angular-fe:
+  uri: "http://localhost"

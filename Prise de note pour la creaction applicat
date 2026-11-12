@@ -1,0 +1,13 @@
+Prise de note pour la creaction application MBJMS 27 octobre 2026
+- installation of Microservices in BE (SPRING BOOT)
+ MS etudiant:
+  - independance: (config client[to get config from config server], Eureka Discovery client)
+ MS config: 
+  - independance: (config server[to provide configuration to config clients], Eureka Discovery server)
+ MS eureka (to register and discover microservices):
+  - independance: (Eureka Discovery server[to register and discover microservices], config client)
+MS gateway (to route requests to appropriate microservices): just like localhost/8080/etudiants
+  - independance: (Reactive Gateway, config client[to get config from config server], Eureka Discovery client)
+
+
+if we want to make MS communicate with each other, we have to use HTTPInterface (REST API) by adding reactive web dependency in each microservice that needs to communicate with others.

@@ -1,0 +1,178 @@
+
+services:
+  mysql:
+    container_name: database_mbj
+    image: 'mysql:8.4.7'
+    ports:
+      - '3306:3306'
+    healthcheck:
+      test: [ "CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-p${DB_ROOT_PASSWORD}" ]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+      start_period: 10s
+    networks:
+      - microservice-network
+    env_file:
+      - ./MBJMSBE/etudiant-ms/.env
+
+  enseignant-ms:
+    build: ./MBJMSBE/enseignant-ms
+    ports:
+      - "8084:8084"
+    depends_on:
+      mysql:
+        condition: service_healthy
+    networks:
+      - microservice-network
+    env_file:
+      - ./MBJMSBE/enseignant-ms/.env
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+
+
+  etudiant-ms:
+    build: ./MBJMSBE/etudiant-ms
+    ports:
+      - "8083:8083"
+    depends_on:
+      mysql:
+        condition: service_healthy
+    networks:
+      - microservice-network
+    env_file:
+      - ./MBJMSBE/etudiant-ms/.env
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+
+
+  servicereg:
+    build: ./MBJMSBE/eureka-ms
+
+    networks:
+      - microservice-network
+    depends_on:
+      - etudiant-ms
+      - enseignant-ms
+    ports:
+      - "8761:8761"
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+
+  gateway-ms:
+    build: ./MBJMSBE/gateway-ms
+    networks:
+      - microservice-network
+    ports:
+      - "8080:8080"
+    depends_on:
+      - etudiant-ms
+      - enseignant-ms
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+
+
+
+  mbjfems:
+    build: ./MBJFE/mbjfems
+    ports:
+      - "${HTTP_PORT:-80}:80"
+    networks:
+      - microservice-network
+    depends_on:
+      - gateway-ms
+      - etudiant-ms
+      - enseignant-ms
+
+networks:
+  microservice-network:
+    driver: bridge
+
+
+#services:
+#  mbjfems:
+#    container_name: mbjfems
+#    image: lazanomentsoarabesandratana/mbjfems:latest
+#    ports:
+#      - "4200:80"
+#    networks:
+#      - microservice-network
+#
+#  config-ms:
+#    container_name: config-ms
+#    image: lazanomentsoarabesandratana/configmbjimg:latest
+#    ports:
+#      - "8888:8888"
+#    networks:
+#      - microservice-network
+#    depends_on:
+#      - servicereg
+#    environment:
+#      - SPRING_PROFILES_ACTIVE=native
+#      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://servicereg:8761/eureka/
+#      - EUREKA_INSTANCE_PREFER_IP_ADDRESS=true
+#
+#
+#  servicereg:
+#    image: lazanomentsoarabesandratana/eurekambjimg:latest
+#    container_name: servicereg
+#    ports:
+#      - "8761:8761"
+#    networks:
+#      - microservice-network
+#
+#  enseigant-ms:
+#    image: lazanomentsoarabesandratana/enseignantimg:latest
+#    container_name: enseignant
+#    ports:
+#      - 8084:8084
+#    depends_on:
+#      - servicereg
+#      - config-ms
+#    networks:
+#      - microservice-network
+#    environment:
+#      - SPRING_PROFILES_ACTIVE=docker
+#      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://servicereg:8761/eureka/
+#      - EUREKA_INSTANCE_PREFER_IP_ADDRESS=true
+#
+#
+#  etudiant-ms:
+#    image: lazanomentsoarabesandratana/etudiantimg:latest
+#    container_name: etudiant
+#    ports:
+#      - 8083:8083
+#    depends_on:
+#      - servicereg
+#      - config-ms
+#    networks:
+#      - microservice-network
+#    environment:
+#      - SPRING_PROFILES_ACTIVE=docker
+#      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://servicereg:8761/eureka/
+#      - EUREKA_INSTANCE_PREFER_IP_ADDRESS=true
+#
+#
+#  gateway-ms:
+#    container_name: gateway-ms
+#    image: lazanomentsoarabesandratana/gatewaymbjimg:latest
+#    ports:
+#      - 8080:8080
+#    depends_on:
+#      - servicereg
+#      - config-ms
+#    networks:
+#      - microservice-network
+#    environment:
+#      - SPRING_PROFILES_ACTIVE=docker
+#      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://servicereg:8761/eureka/
+#      - EUREKA_INSTANCE_PREFER_IP_ADDRESS=true
+#
+#
+#networks:
+#  microservice-network:
+#    driver: bridge
+#
+#volumes:
+#  postgres:
+#  pgadmin:

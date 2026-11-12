@@ -1,0 +1,34 @@
+build:
+  name: "MS Etudiant"
+
+spring:
+  application:
+    name: etudiant-ms
+  datasource:
+    url: jdbc:mysql://localhost:3306/mon_beau_jardin_vms?createDatabaseIfNotExist=true
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    password: ${DB_PASSWORD}
+  jpa:
+    hibernate:
+      ddl-auto: create
+    show-sql: true
+  cloud:
+    discovery:
+      enabled: true
+#  config:
+#    import: optional:configserver:http://config-server:8888
+server:
+  port: 8083
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+    register-with-eureka: true
+  instance:
+    prefer-ip-address: true
+
+
+angular-fe:
+  uri: "http://localhost:4200"

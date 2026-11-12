@@ -1,0 +1,10 @@
+spring:
+  application:
+    name: eureka-ms
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://servicereg:8761/eureka/
+    register-with-eureka: true
+    fetch-registry: true
