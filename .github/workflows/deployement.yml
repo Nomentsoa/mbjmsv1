@@ -26,6 +26,18 @@ jobs:
           docker compose build
           docker compose push
 
+      - name: Créer le fichier .env
+        run: |
+          cat << 'EOF' > MBJMSBE/enseignant-ms/.env
+          SPRING_DATASOURCE_PASSWORD=${{ secrets.SPRING_DATASOURCE_PASSWORD }}
+          EOF
+          
+          cat << 'EOF' > MBJMSBE/enseignant-ms/.env
+          MYSQL_DATABASE=${{ secrets.MYSQL_DATABASE }}
+          MYSQL_ROOT_PASSWORD=${{ secrets.MYSQL_ROOT_PASSWORD }}
+          SPRING_DATASOURCE_PASSWORD=${{ secrets.SPRING_DATASOURCE_PASSWORD }}
+          EOF
+
       - name: Deploy MBJ
         uses: hostinger/deploy-on-vps@v2
         with:
