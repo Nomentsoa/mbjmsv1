@@ -16,4 +16,3 @@ jobs:
         with:
           api-key: ${{ secrets.HOSTINGER_API_KEY }}
           virtual-machine: ${{  vars.HOSTINGER_VM_ID }}
-          docker-compose-path: ../../docker-compose.yml
