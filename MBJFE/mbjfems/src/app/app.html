@@ -1,1 +1,245 @@
-<router-outlet></router-outlet>
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mon Beau Jardin - Site en construction</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: "Trebuchet MS", "Segoe UI", sans-serif;
+      background: linear-gradient(180deg, #dff0d8 0%, #d4eac8 100%);
+      color: #3d5a3c;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 30px 16px;
+      position: relative;
+      overflow-x: hidden;
+    }
+    .cloud { position: absolute; z-index: 0; pointer-events: none; opacity: 0.92; }
+    .c1 { top: 8%; left: 5%; width: 120px; }
+    .c2 { top: 32%; left: -20px; width: 95px; }
+    .c3 { top: 48%; left: 8%; width: 90px; }
+    .c4 { top: 33%; left: 22%; width: 85px; }
+    .c5 { top: 8%; right: 6%; width: 125px; }
+    .c6 { top: 28%; right: 18%; width: 90px; }
+    .c7 { top: 32%; right: -15px; width: 95px; }
+    .c8 { top: 47%; right: 6%; width: 95px; }
+    .card {
+      background-color: #ffffff;
+      max-width: 540px;
+      width: 100%;
+      border-radius: 26px;
+      padding: 10px;
+      box-shadow: 0 12px 30px rgba(76, 120, 68, 0.12);
+      border: 2px solid #8eb87c;
+      position: relative;
+      z-index: 1;
+    }
+    .card-inner {
+      border: 1.5px dashed #a8c99a;
+      border-radius: 20px;
+      padding: 26px 32px 24px 32px;
+      text-align: center;
+    }
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background-color: #f3f9ef;
+      border: 1px solid #c9dfb9;
+      color: #4f7742;
+      font-size: 0.85rem;
+      font-weight: 700;
+      padding: 5px 14px;
+      border-radius: 20px;
+      margin-bottom: 12px;
+    }
+    h1 {
+      font-family: "Comic Sans MS", "Chalkboard SE", "Marker Felt", cursive;
+      font-size: 2.6rem;
+      font-weight: 700;
+      color: #457b3b;
+      line-height: 1.15;
+      margin-bottom: 18px;
+      letter-spacing: 0.5px;
+    }
+    .drawing-frame {
+      background-color: #f5f5f5;
+      background-image: radial-gradient(#e8e8e8 1px, transparent 1px);
+      background-size: 12px 12px;
+      border-radius: 14px;
+      padding: 12px 12px 6px 12px;
+      margin: 0 auto 22px auto;
+      max-width: 440px;
+      border: 1px solid #ececec;
+      overflow: hidden;
+    }
+    .drawing-frame svg { width: 100%; height: auto; display: block; }
+    h2 { font-size: 1.25rem; font-weight: 700; color: #4c8240; margin-bottom: 10px; }
+    p { font-size: 0.94rem; line-height: 1.55; color: #4a5548; margin-bottom: 20px; padding: 0 8px; }
+    .progress-container {
+      position: relative;
+      background-color: #eef5ea;
+      border: 1.5px solid #7ca86b;
+      border-radius: 20px;
+      height: 22px;
+      width: 88%;
+      margin: 0 auto 8px auto;
+      overflow: hidden;
+    }
+    .progress-fill {
+      height: 100%;
+      width: 10%;
+      background: repeating-linear-gradient(-55deg, #8bc34a, #8bc34a 10px, #a3d36c 10px, #a3d36c 20px);
+      border-right: 1.5px solid #7ca86b;
+      border-radius: 20px 0 0 20px;
+    }
+    .progress-label {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 0.8rem;
+      font-weight: 800;
+      color: #ffffff;
+      text-shadow: 0 1px 2px rgba(45, 80, 30, 0.7);
+    }
+    .status-text {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      font-size: 0.88rem;
+      font-weight: 700;
+      color: #3f4a3c;
+      margin-bottom: 22px;
+    }
+    .contact-box {
+      background-color: #faf7eb;
+      border: 1.5px dashed #d6cca8;
+      border-radius: 14px;
+      padding: 14px 16px;
+      font-size: 0.88rem;
+      color: #4b5d44;
+    }
+    .contact-box strong { display: block; font-size: 0.95rem; color: #3c6932; margin-bottom: 6px; }
+    .contact-item { margin: 3px 0; }
+    .contact-box a { color: #457b3b; font-weight: 700; text-decoration: underline; }
+    footer { margin-top: 16px; font-size: 0.82rem; color: #496644; text-align: center; position: relative; z-index: 1; }
+    @media (max-width: 520px) {
+      .card-inner { padding: 20px 16px; }
+      h1 { font-size: 2.1rem; }
+      h2 { font-size: 1.1rem; }
+      .cloud { display: none; }
+    }
+  </style>
+</head>
+<body>
+<svg class="cloud c1" viewBox="0 0 120 60"><path d="M25 50H95C106 50 115 41 115 30C115 19.5 106.8 11 96.5 10.2C92.5 4.1 85.6 0 77.5 0C66.5 0 57.3 7.8 55.2 18.2C52.1 16.8 48.6 16 45 16C33.4 16 24 25.4 24 37C24 37.5 24 38 24.1 38.5C16.2 39.5 10 46.2 10 50H25Z" fill="#ffffff" stroke="#c3dec0" stroke-width="2"/></svg>
+<svg class="cloud c2" viewBox="0 0 120 60"><path d="M25 50H95C106 50 115 41 115 30C115 19.5 106.8 11 96.5 10.2C92.5 4.1 85.6 0 77.5 0C66.5 0 57.3 7.8 55.2 18.2C52.1 16.8 48.6 16 45 16C33.4 16 24 25.4 24 37C24 37.5 24 38 24.1 38.5C16.2 39.5 10 46.2 10 50H25Z" fill="#ffffff" stroke="#c3dec0" stroke-width="2"/></svg>
+<svg class="cloud c3" viewBox="0 0 120 60"><path d="M25 50H95C106 50 115 41 115 30C115 19.5 106.8 11 96.5 10.2C92.5 4.1 85.6 0 77.5 0C66.5 0 57.3 7.8 55.2 18.2C52.1 16.8 48.6 16 45 16C33.4 16 24 25.4 24 37C24 37.5 24 38 24.1 38.5C16.2 39.5 10 46.2 10 50H25Z" fill="#ffffff" stroke="#c3dec0" stroke-width="2"/></svg>
+<svg class="cloud c4" viewBox="0 0 120 60"><path d="M25 50H95C106 50 115 41 115 30C115 19.5 106.8 11 96.5 10.2C92.5 4.1 85.6 0 77.5 0C66.5 0 57.3 7.8 55.2 18.2C52.1 16.8 48.6 16 45 16C33.4 16 24 25.4 24 37C24 37.5 24 38 24.1 38.5C16.2 39.5 10 46.2 10 50H25Z" fill="#ffffff" stroke="#c3dec0" stroke-width="2"/></svg>
+<svg class="cloud c5" viewBox="0 0 120 60"><path d="M25 50H95C106 50 115 41 115 30C115 19.5 106.8 11 96.5 10.2C92.5 4.1 85.6 0 77.5 0C66.5 0 57.3 7.8 55.2 18.2C52.1 16.8 48.6 16 45 16C33.4 16 24 25.4 24 37C24 37.5 24 38 24.1 38.5C16.2 39.5 10 46.2 10 50H25Z" fill="#ffffff" stroke="#c3dec0" stroke-width="2"/></svg>
+<svg class="cloud c6" viewBox="0 0 120 60"><path d="M25 50H95C106 50 115 41 115 30C115 19.5 106.8 11 96.5 10.2C92.5 4.1 85.6 0 77.5 0C66.5 0 57.3 7.8 55.2 18.2C52.1 16.8 48.6 16 45 16C33.4 16 24 25.4 24 37C24 37.5 24 38 24.1 38.5C16.2 39.5 10 46.2 10 50H25Z" fill="#ffffff" stroke="#c3dec0" stroke-width="2"/></svg>
+<svg class="cloud c7" viewBox="0 0 120 60"><path d="M25 50H95C106 50 115 41 115 30C115 19.5 106.8 11 96.5 10.2C92.5 4.1 85.6 0 77.5 0C66.5 0 57.3 7.8 55.2 18.2C52.1 16.8 48.6 16 45 16C33.4 16 24 25.4 24 37C24 37.5 24 38 24.1 38.5C16.2 39.5 10 46.2 10 50H25Z" fill="#ffffff" stroke="#c3dec0" stroke-width="2"/></svg>
+<svg class="cloud c8" viewBox="0 0 120 60"><path d="M25 50H95C106 50 115 41 115 30C115 19.5 106.8 11 96.5 10.2C92.5 4.1 85.6 0 77.5 0C66.5 0 57.3 7.8 55.2 18.2C52.1 16.8 48.6 16 45 16C33.4 16 24 25.4 24 37C24 37.5 24 38 24.1 38.5C16.2 39.5 10 46.2 10 50H25Z" fill="#ffffff" stroke="#c3dec0" stroke-width="2"/></svg>
+
+<main class="card">
+  <div class="card-inner">
+    <div class="badge">&#127793; &Eacute;cole, Collége privée</div>
+    <h1>Mon Beau Jardin</h1>
+    <div class="drawing-frame">
+      <svg viewBox="0 0 420 185" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M292 48 H345 C352 48 357 42 357 35 C357 29 352 24 346 24 C343 17 335 13 327 15 C320 16 315 22 314 28 C311 26 306 26 302 29 C297 32 295 38 297 44 C293 45 292 48 292 48 Z" fill="#e1f5fe" stroke="#64b5f6" stroke-width="2" stroke-linejoin="round"/>
+        <path d="M268 62 H305 C310 62 313 58 313 54 C313 50 310 46 306 46 C304 41 298 39 293 40 C288 41 285 45 284 49 C280 48 275 50 274 54 C270 55 268 58 268 62 Z" fill="#e1f5fe" stroke="#64b5f6" stroke-width="1.8" stroke-linejoin="round"/>
+        <g stroke="#f9a825" stroke-width="2.2" stroke-linecap="round">
+          <line x1="88" y1="10" x2="88" y2="21"/><line x1="88" y1="81" x2="88" y2="92"/>
+          <line x1="47" y1="51" x2="58" y2="51"/><line x1="118" y1="51" x2="129" y2="51"/>
+          <line x1="59" y1="22" x2="67" y2="30"/><line x1="109" y1="72" x2="117" y2="80"/>
+          <line x1="117" y1="22" x2="109" y2="30"/><line x1="67" y1="72" x2="59" y2="80"/>
+          <line x1="72" y1="13" x2="76" y2="23"/><line x1="104" y1="13" x2="100" y2="23"/>
+          <line x1="50" y1="36" x2="60" y2="40"/><line x1="126" y1="36" x2="116" y2="40"/>
+        </g>
+        <circle cx="88" cy="51" r="24" fill="#fff59d" stroke="#f9a825" stroke-width="2.4"/>
+        <path d="M77 48 Q81 43 85 48" stroke="#5d4037" stroke-width="2" stroke-linecap="round" fill="none"/>
+        <path d="M91 48 Q95 43 99 48" stroke="#5d4037" stroke-width="2" stroke-linecap="round" fill="none"/>
+        <circle cx="75" cy="53" r="3" fill="#ffab91" opacity="0.7"/>
+        <circle cx="101" cy="53" r="3" fill="#ffab91" opacity="0.7"/>
+        <path d="M82 55 Q88 63 94 55" stroke="#5d4037" stroke-width="2" stroke-linecap="round" fill="none"/>
+        <line x1="210" y1="45" x2="210" y2="22" stroke="#5d4037" stroke-width="2.5" stroke-linecap="round"/>
+        <path d="M210 23 Q222 20 232 25 Q222 31 210 30 Z" fill="#8bc34a" stroke="#558b2f" stroke-width="2" stroke-linejoin="round"/>
+        <polygon points="162,92 210,48 258,92 258,154 162,154" fill="#fff8e1" stroke="#6d4c41" stroke-width="2.4" stroke-linejoin="round"/>
+        <polygon points="148,96 210,42 272,96 266,102 210,52 154,102" fill="#ef5350" stroke="#b71c1c" stroke-width="2" stroke-linejoin="round"/>
+        <circle cx="210" cy="75" r="10" fill="#e1f5fe" stroke="#455a64" stroke-width="2"/>
+        <line x1="210" y1="65" x2="210" y2="85" stroke="#455a64" stroke-width="1.8"/>
+        <line x1="200" y1="75" x2="220" y2="75" stroke="#455a64" stroke-width="1.8"/>
+        <rect x="200" y="116" width="20" height="38" fill="#d7ccc8" stroke="#5d4037" stroke-width="2.2"/>
+        <circle cx="215" cy="136" r="1.8" fill="#5d4037"/>
+        <rect x="172" y="106" width="19" height="20" fill="#e1f5fe" stroke="#455a64" stroke-width="2"/>
+        <line x1="181.5" y1="106" x2="181.5" y2="126" stroke="#455a64" stroke-width="1.5"/>
+        <line x1="172" y1="116" x2="191" y2="116" stroke="#455a64" stroke-width="1.5"/>
+        <rect x="229" y="106" width="19" height="20" fill="#e1f5fe" stroke="#455a64" stroke-width="2"/>
+        <line x1="238.5" y1="106" x2="238.5" y2="126" stroke="#455a64" stroke-width="1.5"/>
+        <line x1="229" y1="116" x2="248" y2="116" stroke="#455a64" stroke-width="1.5"/>
+        <path d="M35 162 Q210 132 385 162 L385 178 L35 178 Z" fill="#c5e1a5" stroke="#7cb342" stroke-width="2" stroke-linejoin="round"/>
+        <path d="M108 158 Q106 142 108 128" stroke="#558b2f" stroke-width="2.2" stroke-linecap="round"/>
+        <path d="M107 146 Q97 142 99 137 Q105 139 107 146" fill="#8bc34a" stroke="#558b2f" stroke-width="1.5"/>
+        <g fill="#f48fb1" stroke="#ad1457" stroke-width="1.5">
+          <circle cx="108" cy="116" r="5"/><circle cx="115" cy="121" r="5"/><circle cx="112" cy="129" r="5"/><circle cx="104" cy="129" r="5"/><circle cx="101" cy="121" r="5"/>
+        </g>
+        <circle cx="108" cy="123" r="4.5" fill="#fff176" stroke="#f57f17" stroke-width="1.5"/>
+        <path d="M138 154 Q140 135 137 118" stroke="#558b2f" stroke-width="2.2" stroke-linecap="round"/>
+        <path d="M138 140 Q148 135 147 130 Q140 132 138 140" fill="#8bc34a" stroke="#558b2f" stroke-width="1.5"/>
+        <g fill="#f06292" stroke="#880e4f" stroke-width="1.5">
+          <circle cx="137" cy="105" r="5.5"/><circle cx="145" cy="111" r="5.5"/><circle cx="142" cy="120" r="5.5"/><circle cx="132" cy="120" r="5.5"/><circle cx="129" cy="111" r="5.5"/>
+        </g>
+        <circle cx="137" cy="113" r="5" fill="#fff176" stroke="#f57f17" stroke-width="1.5"/>
+        <path d="M282 154 Q280 135 283 118" stroke="#558b2f" stroke-width="2.2" stroke-linecap="round"/>
+        <path d="M282 140 Q272 135 273 130 Q280 132 282 140" fill="#8bc34a" stroke="#558b2f" stroke-width="1.5"/>
+        <g fill="#ba68c8" stroke="#4a148c" stroke-width="1.5">
+          <circle cx="283" cy="105" r="5.5"/><circle cx="291" cy="111" r="5.5"/><circle cx="288" cy="120" r="5.5"/><circle cx="278" cy="120" r="5.5"/><circle cx="275" cy="111" r="5.5"/>
+        </g>
+        <circle cx="283" cy="113" r="5" fill="#fff176" stroke="#f57f17" stroke-width="1.5"/>
+        <path d="M312 158 Q314 142 312 128" stroke="#558b2f" stroke-width="2.2" stroke-linecap="round"/>
+        <g fill="#ce93d8" stroke="#6a1b9a" stroke-width="1.5">
+          <circle cx="312" cy="116" r="5"/><circle cx="319" cy="121" r="5"/><circle cx="316" cy="129" r="5"/><circle cx="308" cy="129" r="5"/><circle cx="305" cy="121" r="5"/>
+        </g>
+        <circle cx="312" cy="123" r="4.5" fill="#fff176" stroke="#f57f17" stroke-width="1.5"/>
+        <g stroke="#558b2f" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none">
+          <polyline points="62,163 66,152 70,161 75,150 78,162"/>
+          <polyline points="122,168 126,156 130,166 135,155 138,167"/>
+          <polyline points="168,166 172,158 176,165 180,157 183,165"/>
+          <polyline points="205,168 209,159 213,167 217,158 220,167"/>
+          <polyline points="242,166 246,158 250,165 254,157 257,165"/>
+        </g>
+        <g transform="translate(262, 168) rotate(-14)">
+          <polygon points="16,0 0,6 16,12" fill="#ffe0b2" stroke="#6d4c41" stroke-width="1.8" stroke-linejoin="round"/>
+          <polygon points="6,3.8 0,6 6,8.2" fill="#1565c0"/>
+          <rect x="16" y="0" width="54" height="12" fill="#42a5f5" stroke="#1565c0" stroke-width="1.8"/>
+          <line x1="16" y1="4" x2="70" y2="4" stroke="#90caf9" stroke-width="1.5"/>
+          <rect x="70" y="0" width="6" height="12" fill="#e0e0e0" stroke="#616161" stroke-width="1.8"/>
+          <path d="M76 0 H82 C85 0 86 2 86 6 C86 10 85 12 82 12 H76 Z" fill="#f48fb1" stroke="#ad1457" stroke-width="1.8"/>
+        </g>
+      </svg>
+    </div>
+    <h2>Notre nouveau site web pousse comme une fleur !</h2>
+    <p>Les grands et les petits pr&eacute;parent un tout nouvel espace color&eacute; pour l'&eacute;cole <strong>Mon Beau Jardin</strong>. Nous terminons les derniers dessins et r&eacute;glages avant l'ouverture !</p>
+    <div class="progress-container">
+      <div class="progress-fill"></div>
+      <span class="progress-label">10%</span>
+    </div>
+    <div class="status-text">&#128397;&#65039; Construction en cours...</div>
+    <div class="contact-box">
+      <strong>Une question pour l'&eacute;quipe de l'&eacute;cole ?</strong>
+      <div class="contact-item">&#9993;&#65039; <a href="mailto:contact@monbeaujardin.ca">starksedera@gmail.com</a></div>
+      <div class="contact-item">&#128222; 033 25 626 79 / 037 61 070 92</div>
+    </div>
+  </div>
+</main>
+<footer>&copy; 2026 Laza Nomentsoa Rabesandratana</footer>
+</body>
+</html>
