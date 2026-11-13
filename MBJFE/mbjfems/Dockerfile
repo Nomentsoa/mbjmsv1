@@ -5,6 +5,8 @@ RUN npm install
 RUN npm run build
 
 FROM nginx:alpine
+
+RUN apk add --no-cache openssl
 COPY nginx.conf /etc/nginx/conf.d/default.conf
 COPY --from=build /app/dist/mbjfems/browser /usr/share/nginx/html
 
