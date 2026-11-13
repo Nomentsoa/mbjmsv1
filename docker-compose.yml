@@ -28,11 +28,15 @@ services:
         condition: service_healthy
     networks:
       - microservice-network
-    env_file:
-      - ./MBJMSBE/enseignant-ms/.env
+#    env_file:
+#      - ./MBJMSBE/enseignant-ms/.env
     environment:
-      - SPRING_PROFILES_ACTIVE=docker
-
+      - SPRING_PROFILES_ACTIVE=${SPRING_PROFILES_ACTIVE:-docker}
+      - MYSQL_DATABASE=${MYSQL_DATABASE}
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+      - HOST=${HOST}
+      - SPRING_DATASOURCE_PASSWORD=${SPRING_DATASOURCE_PASSWORD}
+      - PORT_CORS=${PORT_CORS}
 
   etudiant-ms:
     build: ./MBJMSBE/etudiant-ms
@@ -44,10 +48,15 @@ services:
         condition: service_healthy
     networks:
       - microservice-network
-    env_file:
-      - ./MBJMSBE/etudiant-ms/.env
+#    env_file:
+#      - ./MBJMSBE/etudiant-ms/.env
     environment:
-      - SPRING_PROFILES_ACTIVE=docker
+      - SPRING_PROFILES_ACTIVE=${SPRING_PROFILES_ACTIVE:-docker}
+      - MYSQL_DATABASE=${MYSQL_DATABASE}
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+      - HOST=${HOST}
+      - SPRING_DATASOURCE_PASSWORD=${SPRING_DATASOURCE_PASSWORD}
+      - PORT_CORS=${PORT_CORS}
 
 
   servicereg:
@@ -74,8 +83,9 @@ services:
       - etudiant-ms
       - enseignant-ms
     environment:
-      - SPRING_PROFILES_ACTIVE=docker
-      - ANGULAR_FE_URI=${ANGULAR_FE_URI}
+      - SPRING_PROFILES_ACTIVE=${SPRING_PROFILES_ACTIVE:-docker}
+      - HOST=${HOST}
+      - PORT_CORS=${PORT_CORS}
 
 
 

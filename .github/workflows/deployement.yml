@@ -15,17 +15,17 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v5
 
-      - name: Créer le fichier .env
-        run: |
-          cat << 'EOF' > MBJMSBE/enseignant-ms/.env
-          SPRING_DATASOURCE_PASSWORD=${{ secrets.SPRING_DATASOURCE_PASSWORD }}
-          EOF
-          
-          cat << 'EOF' > MBJMSBE/etudiant-ms/.env
-          MYSQL_DATABASE=${{ secrets.MYSQL_DATABASE }}
-          MYSQL_ROOT_PASSWORD=${{ secrets.MYSQL_ROOT_PASSWORD }}
-          SPRING_DATASOURCE_PASSWORD=${{ secrets.SPRING_DATASOURCE_PASSWORD }}
-          EOF
+#      - name: Créer le fichier .env
+#        run: |
+#          cat << 'EOF' > MBJMSBE/enseignant-ms/.env
+#          SPRING_DATASOURCE_PASSWORD=${{ secrets.SPRING_DATASOURCE_PASSWORD }}
+#          EOF
+#
+#          cat << 'EOF' > MBJMSBE/etudiant-ms/.env
+#          MYSQL_DATABASE=${{ secrets.MYSQL_DATABASE }}
+#          MYSQL_ROOT_PASSWORD=${{ secrets.MYSQL_ROOT_PASSWORD }}
+#          SPRING_DATASOURCE_PASSWORD=${{ secrets.SPRING_DATASOURCE_PASSWORD }}
+#          EOF
 
       - name: Log in to GitHub Container Registry
         uses: docker/login-action@v3
@@ -49,4 +49,6 @@ jobs:
           environment-variables: |
             MYSQL_DATABASE=${{ vars.MYSQL_DATABASE }}
             MYSQL_ROOT_PASSWORD=${{ secrets.MYSQL_ROOT_PASSWORD }}
-            ANGULAR_FE_URI= ${{ vars.ANGULAR_FE_URI }}
+            HOST= ${{ vars.ANGULAR_FE_URI }}
+            SPRING_DATASOURCE_PASSWORD=${{ secrets.MYSQL_ROOT_PASSWORD }}
+            PORT_CORS=${{ vars.PORT_CORS }}

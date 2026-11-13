@@ -2,10 +2,10 @@ spring:
   application:
     name: enseignant-ms
   datasource:
-    url: jdbc:mysql://localhost:3306/mon_beau_jardin_vms?createDatabaseIfNotExist=true
+    url: jdbc:mysql://${HOST}:3306/mon_beau_jardin_vms?createDatabaseIfNotExist=true
     driver-class-name: com.mysql.cj.jdbc.Driver
     username: root
-    password: ${DB_PASSWORD}
+    password: ${MYSQL_ROOT_PASSWORD}
   jpa:
     hibernate:
       ddl-auto: create
@@ -26,4 +26,4 @@ eureka:
     prefer-ip-address: true
 
 angular-fe:
-  uri: "http://localhost:4200"
+  uri: "http://${HOST}:${PORT_CORS}"
