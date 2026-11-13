@@ -20,7 +20,7 @@ eureka:
     prefer-ip-address: true
 
 angular-fe:
-  uri: "http://localhost"
+  uri: "http://${HOST}:${PORT_CORS}"
 
 
 
