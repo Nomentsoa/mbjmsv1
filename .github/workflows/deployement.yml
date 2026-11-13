@@ -52,3 +52,4 @@ jobs:
             HOST= ${{ vars.ANGULAR_FE_URI }}
             SPRING_DATASOURCE_PASSWORD=${{ secrets.MYSQL_ROOT_PASSWORD }}
             PORT_CORS=${{ vars.PORT_CORS }}
+            API_URL=${{ secrets.API_URL }}

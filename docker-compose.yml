@@ -100,6 +100,8 @@ services:
       - gateway-ms
       - etudiant-ms
       - enseignant-ms
+    environment:
+      - API_URL=${API_URL}
 
 networks:
   microservice-network:
