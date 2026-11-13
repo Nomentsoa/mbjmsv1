@@ -33,11 +33,8 @@ jobs:
           registry: ghcr.io
           username: ${{ github.actor }}
           password: ${{ secrets.GH_TOKEN }}
+
       - name: Build and push all service images
-        environment-variables: |
-          MYSQL_DATABASE=${{ vars.MYSQL_DATABASE }}
-          MYSQL_ROOT_PASSWORD=${{ secrets.MYSQL_ROOT_PASSWORD }}
-          ANGULAR_FE_URI= ${{ vars.ANGULAR_FE_URI }}
         run: |
           docker compose build
           docker compose push
@@ -49,3 +46,7 @@ jobs:
         with:
           api-key: ${{ secrets.HOSTINGER_API_KEY }}
           virtual-machine: ${{  vars.HOSTINGER_VM_ID }}
+          environment-variables: |
+            MYSQL_DATABASE=${{ vars.MYSQL_DATABASE }}
+            MYSQL_ROOT_PASSWORD=${{ secrets.MYSQL_ROOT_PASSWORD }}
+            ANGULAR_FE_URI= ${{ vars.ANGULAR_FE_URI }}
