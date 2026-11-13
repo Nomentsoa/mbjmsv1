@@ -16,6 +16,8 @@ services:
     environment:
       - MYSQL_DATABASE=${MYSQL_DATABASE}
       - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+    volumes:
+      - mbj_data:/var/lib/mysql
 
 
   enseignant-ms:
@@ -136,6 +138,7 @@ networks:
 volumes:
   certbot-etc:
   certbot-var:
+  mbj_data:
 
 #services:
 #  mbjfems:
