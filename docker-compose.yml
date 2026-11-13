@@ -106,6 +106,9 @@ services:
       - enseignant-ms
     environment:
       - API_URL=${API_URL}
+   #pour le lancement direct dans prod
+      - NOVE_ENV=production
+
 
   certbot:
     image: certbot/certbot
