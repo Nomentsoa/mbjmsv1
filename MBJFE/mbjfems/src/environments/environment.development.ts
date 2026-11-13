@@ -1,4 +1,4 @@
 export const environment = {
   production: false,
-  apiUrl: 'http://laza:8080/api',
+  apiUrl: (window as any)["env"]?.["apiUrl"] || 'http://laza2:8080/api',
 };
