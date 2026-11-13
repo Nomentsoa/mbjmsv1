@@ -12,6 +12,12 @@ spring:
                 - Path=/enseignants/**
               filters:
                 - "RewritePath=/enseignants(?<segment>/?.*), /api/enseignants${segment}"
+          globalcors:
+            cors-configurations:
+              '[/**]':
+                allowedOrigins: "${angular-fe.uri}"
+                allowedMethods: "*"
+                allowedHeaders: "*"
 eureka:
   client:
     service-url:
