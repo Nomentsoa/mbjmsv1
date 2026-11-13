@@ -21,7 +21,7 @@ public class GatewayCorsConfig {
     public CorsWebFilter corsWebFilter() {
         CorsConfiguration corsConfig = new CorsConfiguration();
 
-        corsConfig.setAllowedOrigins(Arrays.asList(angularFeUri));
+        corsConfig.setAllowedOrigins(Arrays.asList(angularFeUri, "http://2.24.102.95"));
         corsConfig.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
 
         corsConfig.setAllowedHeaders(Arrays.asList("*"));
