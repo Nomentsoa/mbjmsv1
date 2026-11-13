@@ -28,7 +28,7 @@ jobs:
           EOF
           
           cat << 'EOF' > .env
-          MYSQL_DATABASE=${{ svars.MYSQL_DATABASE }}
+          MYSQL_DATABASE=${{ vars.MYSQL_DATABASE }}
           MYSQL_ROOT_PASSWORD=${{ secrets.MYSQL_ROOT_PASSWORD }}
           ANGULAR_FE_URI=${{ vars.ANGULAR_FE_URI }}
           EOF
