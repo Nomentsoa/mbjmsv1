@@ -22,6 +22,18 @@ public class GatewayConfig {
                         )
                        // .filters(f -> f.rewritePath("/api/(?<segment>/?.*)", "/${segment}"))
                         .uri("lb://ETUDIANT-MS")
-                ).build();
+                )
+                .route("enseignant-service", r -> r
+                .path("/api/enseignants/**")
+                .filters(f -> f
+                                // 1. Supprime le header Origin pour que le MS croit que c'est une requête locale directe
+                                .removeRequestHeader("Origin")
+                                .rewritePath("/api/enseigants(?<segment>/?.*)", "/api/enseigants{segment}")
+                        // 2. Optionnel mais recommandé : supprime aussi le Host d'origine si le 403 persiste
+                        // .removeRequestHeader("Host")
+                )
+                // .filters(f -> f.rewritePath("/api/(?<segment>/?.*)", "/${segment}"))
+                .uri("lb://ENSEIGNANT-MS")
+        ).build();
     }
 }
