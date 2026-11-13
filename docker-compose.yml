@@ -13,8 +13,10 @@ services:
       start_period: 10s
     networks:
       - microservice-network
-    env_file:
-      - ./MBJMSBE/etudiant-ms/.env
+    environment:
+      - MYSQL_DATABASE=${MYSQL_DATABASE}
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+
 
   enseignant-ms:
     build: ./MBJMSBE/enseignant-ms
@@ -73,6 +75,7 @@ services:
       - enseignant-ms
     environment:
       - SPRING_PROFILES_ACTIVE=docker
+      - ANGULAR_FE_URI=${ANGULAR_FE_URI}
 
 
 

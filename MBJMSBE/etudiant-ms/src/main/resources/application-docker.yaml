@@ -24,6 +24,6 @@ eureka:
   instance:
     prefer-ip-address: true
 
-
-angular-fe:
-  uri: "http://localhost"
+#
+#angular-fe:
+#  uri: "http://localhost"
