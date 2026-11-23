@@ -1,16 +1,11 @@
 package ca.lazanomentsoa.etudiantms.service;
 
+import ca.lazanomentsoa.etudiantms.dto.EtudiantDTO;
+import ca.lazanomentsoa.etudiantms.dto.EtudiantItemToListDTO;
 
-import ca.lazanomentsoa.etudiantms.clientConfig.enseignant.EnseignantHttpInterface;
-import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
+import java.util.List;
 
-@Service
-@RequiredArgsConstructor
-public class EtudiantService {
-    private final EnseignantHttpInterface enseignantHttpInterface;
-
-    public String getEnseignantMS() {
-        return enseignantHttpInterface.getEnseignants();
-    }
+public interface EtudiantService {
+     List<EtudiantItemToListDTO> findAll();
+     EtudiantDTO findById(String id);
 }

@@ -10,7 +10,7 @@
         <module name="gateway-ms" />
         <module name="eureka-ms" />
       </profile>
-      <profile name="Annotation profile for enseignant-ms" enabled="true">
+      <profile name="Annotation profile for etudiant-ms" enabled="true">
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
