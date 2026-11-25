@@ -2,15 +2,20 @@ package ca.lazanomentsoa.etudiantms.service;
 
 
 import ca.lazanomentsoa.etudiantms.clientConfig.enseignant.EnseignantHttpInterface;
-import ca.lazanomentsoa.etudiantms.dto.EtudiantDTO;
-import ca.lazanomentsoa.etudiantms.dto.EtudiantItemToListDTO;
+import ca.lazanomentsoa.etudiantms.dto.etudiants.EtudiantDTO;
+import ca.lazanomentsoa.etudiantms.dto.etudiants.EtudiantItemToListDTO;
+import ca.lazanomentsoa.etudiantms.dto.etudiants.PagedEtudiantItemListDTO;
 import ca.lazanomentsoa.etudiantms.entity.Etudiant;
 import ca.lazanomentsoa.etudiantms.exception.EtudiantNotFound;
 import ca.lazanomentsoa.etudiantms.repository.EtudiantRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -24,13 +29,16 @@ public class EtudiantServiceImpl implements EtudiantService {
 
     public EtudiantDTO save(EtudiantDTO etudiantDTO) {
       // to do set qrCode
+
         Etudiant etudiant = etudiantRepository.save(etudiantDTO.toEntity());
         return EtudiantDTO.fromEntity(etudiant);
     }
 
     @Override
-    public List<EtudiantItemToListDTO> findAll() {
-        return etudiantRepository.findAll().stream().map(EtudiantItemToListDTO::fromEtudiantItem).toList();
+    public PagedEtudiantItemListDTO getAllEtudiants(String recherche, boolean isActive, int page, int size) {
+        Page<Etudiant> pagedEtudiant = etudiantRepository.rechercheEtudiants(recherche, isActive, PageRequest.of(page, size));
+        List<EtudiantItemToListDTO> listEtudiants = pagedEtudiant.getContent().stream().map(EtudiantItemToListDTO::fromEtudiantItem).toList();
+        return new PagedEtudiantItemListDTO(page, pagedEtudiant.getTotalPages(), size, listEtudiants);
     }
 
     @Override

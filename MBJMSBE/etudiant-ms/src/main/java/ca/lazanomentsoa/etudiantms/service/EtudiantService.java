@@ -1,11 +1,13 @@
 package ca.lazanomentsoa.etudiantms.service;
 
-import ca.lazanomentsoa.etudiantms.dto.EtudiantDTO;
-import ca.lazanomentsoa.etudiantms.dto.EtudiantItemToListDTO;
+import ca.lazanomentsoa.etudiantms.dto.etudiants.EtudiantDTO;
+import ca.lazanomentsoa.etudiantms.dto.etudiants.EtudiantItemToListDTO;
+import ca.lazanomentsoa.etudiantms.dto.etudiants.PagedEtudiantItemListDTO;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
-import java.util.List;
 
 public interface EtudiantService {
-     List<EtudiantItemToListDTO> findAll();
+     PagedEtudiantItemListDTO getAllEtudiants(String recherche,boolean isActive, int page, int size);
      EtudiantDTO findById(String id);
 }

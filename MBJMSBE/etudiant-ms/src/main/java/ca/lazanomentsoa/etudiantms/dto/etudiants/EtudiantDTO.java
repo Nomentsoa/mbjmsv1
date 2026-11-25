@@ -1,9 +1,7 @@
-package ca.lazanomentsoa.etudiantms.dto;
+package ca.lazanomentsoa.etudiantms.dto.etudiants;
 
 import ca.lazanomentsoa.etudiantms.entity.Etudiant;
 import ca.lazanomentsoa.etudiantms.entity.Sexe;
-
-import java.util.Date;
 
 
 public record EtudiantDTO (String id,
@@ -13,6 +11,7 @@ public record EtudiantDTO (String id,
         Sexe sexe,
         String addresse,
         String photoProfile,
+        boolean isActive,
         String qrCode,
         String nomPere,
         String telephonePere,
@@ -33,6 +32,7 @@ public record EtudiantDTO (String id,
                         .dateDeNaissance(this.dateDeNaissance)
                         .sexe(this.sexe)
                         .addresse(this.addresse)
+                        .isActive(this.isActive)
                         .photoProfile(this.photoProfile)
                         .nomPere(this.nomPere)
                         .telephonePere(this.telephonePere)
@@ -54,6 +54,7 @@ public record EtudiantDTO (String id,
                         etudiant.getSexe(),
                         etudiant.getAddresse(),
                         etudiant.getPhotoProfile(),
+                        etudiant.isActive(),
                         etudiant.getQrCode(),
                         etudiant.getNomPere(),
                         etudiant.getTelephonePere(),

@@ -314,3 +314,43 @@ a {
   h1 { font-size: 1.5rem; }
   h2 { font-size: 1.25rem; }
 }
+
+pagination {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: system-ui, sans-serif;
+}
+
+.page-btn {
+  padding: 0.45rem 0.8rem;
+  border: 1px solid var(--neutral-400);
+  background-color: #ffffff;
+  color:  var(--text-muted);
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: all 0.15s ease;
+  margin-left: 2px;
+}
+
+.page-btn:hover:not(:disabled):not(.active) {
+  background-color: #f3f4f6;
+}
+
+.page-btn.active {
+  background: linear-gradient(135deg, var(--primary-500), var(--primary-700));
+  color: #ffffff;
+  border-color: var(--primary-600);
+  font-weight: 600;
+}
+
+.page-btn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.ellipsis {
+  padding: 0 0.4rem;
+  color: var(--text-muted);
+}

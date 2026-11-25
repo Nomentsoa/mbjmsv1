@@ -10,14 +10,14 @@ import {
 } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { EtudiantsService } from '../../../services/etudiants/etudiants.service';
-import { EtudiantDetailModel } from '../../models/etudiant/etudiantDetailModel.model';
+import { EtudiantDetailModel } from '../../../models/etudiant/etudiantDetailModel.model';
 import { atLeastOneRequiredValidator } from '../../../utils/atLeastOneRequiredValidator';
 
 
 
 @Component({
   selector: 'app-etudiant-ajout-component',
-  imports: [FormsModule, ReactiveFormsModule],
+  imports: [FormsModule, ReactiveFormsModule, RouterLink],
   templateUrl: './etudiant-ajout-component.html',
   styleUrl: './etudiant-ajout-component.scss',
 })
@@ -78,6 +78,7 @@ export class EtudiantAjoutComponent implements OnInit {
       sexe: registerValueForm.sexe,
       addresse: registerValueForm.addresse,
       photoProfile: this.photoUrl,
+      isActive: true,
       qrCode: "",
       nomPere: parentValueForm.nomPere,
       telephonePere: parentValueForm.telephonePere,

@@ -1,10 +1,9 @@
-package ca.lazanomentsoa.etudiantms.dto;
+package ca.lazanomentsoa.etudiantms.dto.etudiants;
 
 import ca.lazanomentsoa.etudiantms.entity.Etudiant;
 import ca.lazanomentsoa.etudiantms.entity.Sexe;
 import lombok.Builder;
 
-import java.util.Date;
 @Builder
 public record EtudiantItemToListDTO(
         String id,
@@ -16,6 +15,9 @@ public record EtudiantItemToListDTO(
         String qrCode
 ) {
     public static EtudiantItemToListDTO fromEtudiantItem(Etudiant etudiant) {
+        if (etudiant == null) {
+            return null;
+        }
         return EtudiantItemToListDTO.builder()
                 .id(etudiant.getId())
                 .nom(etudiant.getNom())

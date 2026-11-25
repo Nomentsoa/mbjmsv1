@@ -1,10 +1,7 @@
 package ca.lazanomentsoa.etudiantms.entity;
 
 import jakarta.annotation.Nullable;
-import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.*;
 
 import java.util.Date;
@@ -23,10 +20,13 @@ public class Etudiant {
     private String photoProfile;
     @Nullable
     private String qrCode;
+    private boolean isActive = true;
     private String nomPere;
+    @Column(length = 10)
     private String telephonePere;
     private String professionPere;
     private String nomMere;
+    @Column(length = 10)
     private String telephoneMere;
     private String professionMere;
     private boolean isTuteur = false;

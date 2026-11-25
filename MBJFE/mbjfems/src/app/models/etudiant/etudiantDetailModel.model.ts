@@ -6,6 +6,7 @@ export interface EtudiantDetailModel {
   sexe: string;
   addresse: string;
   photoProfile?: string;
+  isActive: boolean;
   qrCode?: string;
   nomPere?: string;
   telephonePere?: string;
