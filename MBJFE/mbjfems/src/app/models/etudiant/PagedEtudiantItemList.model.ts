@@ -2,7 +2,7 @@ import { EtudiantItemListModel } from './etudiantItemList.model';
 
 export interface PagedEtudiantItemListModel {
   currentPage: number;
-  totalPage: number;
+  totalPages: number;
   pageSize: number;
   etudiantItemListDTOs: Array<EtudiantItemListModel>;
 }

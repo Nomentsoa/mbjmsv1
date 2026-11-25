@@ -48,7 +48,6 @@
     <div class="filter-chips">
       @for (f of filters; track f.value) {
         <button class="chip" [class.active]=" isActiveFilter === f.value" (click)="onChangeIsActive()">
-
           {{ f.label }}
           <span class="chip-count"></span>
         </button>
@@ -67,7 +66,7 @@
               <div class="student-id-badge">{{ etudiant.id }}</div>
             </div>
             <div class="card-body">
-              <h3 class="student-name">{{ etudiant.nom }} {{ etudiant.prenom }}</h3>
+              <h3 class="student-name truncate-single">{{ etudiant.nom }} {{ etudiant.prenom }}</h3>
               <div class="student-meta">
                 <span> 3 ans</span>
                 <span class="dot">•</span>
@@ -110,13 +109,13 @@
   }
 </div>
 
-@if (true) {
+@if (totalPage > 1) {
   <nav class="pagination" aria-label="Pagination">
     <button
       type="button"
       class="page-btn"
       (click)="onPrecedent()"
-      [hidden]="currentPage == 0"
+      [disabled]="currentPage == 0"
     >
       &laquo; Précédent
     </button>
@@ -138,7 +137,7 @@
       type="button"
       class="page-btn"
       (click)="onSuivant()"
-      [hidden]="currentPage === totalPage - 1"
+      [disabled]="currentPage === totalPage - 1"
     >
       Suivant &raquo;
     </button>
