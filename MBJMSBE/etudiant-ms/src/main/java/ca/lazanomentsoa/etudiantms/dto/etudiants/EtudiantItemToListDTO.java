@@ -1,7 +1,7 @@
 package ca.lazanomentsoa.etudiantms.dto.etudiants;
 
-import ca.lazanomentsoa.etudiantms.entity.Etudiant;
-import ca.lazanomentsoa.etudiantms.entity.Sexe;
+import ca.lazanomentsoa.etudiantms.entity.etudiant.Etudiant;
+import ca.lazanomentsoa.etudiantms.entity.etudiant.Sexe;
 import lombok.Builder;
 
 @Builder

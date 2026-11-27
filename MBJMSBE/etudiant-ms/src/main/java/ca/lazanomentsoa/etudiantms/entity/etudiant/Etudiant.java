@@ -1,10 +1,8 @@
-package ca.lazanomentsoa.etudiantms.entity;
+package ca.lazanomentsoa.etudiantms.entity.etudiant;
 
 import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
 import lombok.*;
-
-import java.util.Date;
 
 @Entity
 @Getter @Setter @NoArgsConstructor @AllArgsConstructor @Builder

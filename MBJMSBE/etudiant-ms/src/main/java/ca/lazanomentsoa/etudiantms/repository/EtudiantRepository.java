@@ -1,6 +1,6 @@
 package ca.lazanomentsoa.etudiantms.repository;
 
-import ca.lazanomentsoa.etudiantms.entity.Etudiant;
+import ca.lazanomentsoa.etudiantms.entity.etudiant.Etudiant;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;

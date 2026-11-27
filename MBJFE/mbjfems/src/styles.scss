@@ -221,9 +221,9 @@ a {
   font-weight: 700;
 }
 
-.badge-active { background: var(--success-100); color: var(--success-700); }
-.badge-inactive { background: var(--warning-100); color: var(--warning-700); }
-.badge-graduated { background: var(--primary-100); color: var(--primary-700); }
+.badge-onTime { background: var(--success-100); color: var(--success-700); }
+.badge-onWarning { background: var(--warning-500); color: var(--warning-50); }
+.badge-onLate { background: var(--error-500); color: var(--error-50); }
 
 /* ===== Form Inputs ===== */
 .form-group {
